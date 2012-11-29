@@ -20,7 +20,7 @@ CERN OHL is copyright of CERN. Anyone is welcome to use the CERN OHL,
 in unmodified form only, for the distribution of his own Open Hardware
 designs. Any other right is reserved.  
 
-1. Definitions
+1 Definitions
 
 In this Licence, the following terms have the following meanings:
 
@@ -46,7 +46,7 @@ of this Licence.
 
 A Licensee may at the same time be a Licensor, and vice versa.
 
-2. Applicability
+2 Applicability
 
 2.1 This Licence governs the use, copying, modification, communication
 to the public and distribution of the Documentation, and the
@@ -64,7 +64,7 @@ Documentation, the modified Documentation or with Products. The use of
 such software, firmware, or code is subject to the applicable licence
 terms and conditions.  
 
-3. Copying, modification, communication to the public and distribution
+3 Copying, modification, communication to the public and distribution
 of the Documentation
 
 3.1 The Licensee shall keep intact all copyright and trademarks
@@ -101,7 +101,7 @@ use of the rights granted under this Licence. The scope of this
 section 3.4 shall be strictly limited to the parts of the
 Documentation or modified Documentation created by the Licensor.
 
-4. Manufacture and distribution of Products
+4 Manufacture and distribution of Products
 
 4.1 The Licensee may manufacture or distribute Products always
 provided that the Licensee distributes to each recipient of such
@@ -113,7 +113,7 @@ indicated its wish to receive this information about the type,
 quantity and dates of production of Products the Licensee has (had)
 manufactured.
 
-5. Warranty and liability
+5 Warranty and liability
 
 5.1 DISCLAIMER – The Documentation and any modified Documentation are
 provided "as is" and any express or implied warranties, including, but
@@ -142,7 +142,7 @@ damages, and the Licensee shall hold the Licensor(s) free and harmless
 from any liability, costs, damages, fees and expenses, including
 claims by third parties, in relation to such use.
 
-6. General
+6 General
 
 6.1 The rights granted under this Licence do not imply or represent
 any transfer or assignment of intellectual property rights to the
