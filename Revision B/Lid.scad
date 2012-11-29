@@ -49,12 +49,10 @@ module drawRightRack(x,y,z)
 	translate([x,y+2,z]) cube([22,6,1.5]);
 	difference()
 	{
-		translate([x-9,y-51+11,z]) cube([9,51,10]);
-		translate([x-7.5,y-51+14,z+2]) cube([7.5,45,6]);
-		translate([x-7.5,y-51+14,z]) cube([6,45,8]);
+		translate([x-9,y-51+11,z]) cube([9,48,10]);
+		translate([x-7.5,y-51+13,z+2]) cube([7.5,44,6]);
+		translate([x-7.5,y-51+13,z]) cube([6,40,8]);
 	}
-//	translate([x-1.5,y-51+11,z]) cube([1.5,51,10]);
-
 }
 
 
@@ -71,11 +69,13 @@ module drawLidExploded(x,y,z)
 	lid(x,y,z);
 	drawLeftRack(x+5, y+80, z);
 	drawGear(x + 53, y+105, z);
-	drawRightRack(x, y+130, z);
+//	drawRightRack(x, y+130, z);
+	rotate([270,0,0]) drawRightRack(x+10, z-7.5, y+130);
 }
 
 drawLidAssembled(0, 0, 0);
 drawLidExploded(0, 100, 0);
+//drawLidExploded(0, 0, 0);
 
 //	drawGear(51, 20, 0);
 //	drawRightRack(0, 0, 0);
