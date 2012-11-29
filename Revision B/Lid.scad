@@ -6,7 +6,7 @@ module lidBase(x,y,z)
 {
 	translate([x,y,z]) cube([106,51,1.5]);
 	translate([x, y-1.5, z+1.5]) cube([106,54,2.5]);
-	translate([x, y, z+1.5]) cube ([1.5,51,43]);
+	translate([x, y, z+1.5]) cube ([1.5,51,45]);
 }
 
 module lidCutouts(x,y,z)
@@ -75,7 +75,18 @@ module drawCase(x,y,z)
 	stepsH=(height-16)/6;
 	stepsL=(length-12)/12;
 
-	translate([x+1.5,y+3,z]) cube([104.5,51,1.5]);
+	difference()
+	{
+		translate([x+1.5,y+3,z]) cube([104.5,51,1.5]);
+		translate([x+1.5+5,y+3+5,z]) cylinder(h = 1.5,r = 1);
+		translate([x+1.5+5,y+51+3-5,z]) cylinder(h = 1.5,r = 1);
+		translate([x+1.5+104.5-5,y+3+5,z]) cylinder(h = 1.5,r = 1);
+		translate([x+1.5+104.5-5,y+51+3-5,z]) cylinder(h = 1.5,r = 1);
+		translate([x+3,y+11,z]) cube([6,35,1.5]);
+		translate([x+3+6,y+3,z]) cube([12,51,1.5]);
+	}
+	translate([x+21,y+51-10+3,z+1.5]) cube([3,10,3]);
+
 	difference() {
 		union(){
 			translate([x,y,z]) cube([106,3,height]);
