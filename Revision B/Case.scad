@@ -5,15 +5,15 @@ include <gearLib.scad>
 module lidBase(x,y,z)
 {
 	translate([x,y,z]) cube([106,51,1.5]);
-	translate([x, y-1.5, z+1.5]) cube([106,54,2.5]);
+	translate([x, y-1.5, z+1.5]) cube([106,54,3.5]);
 	translate([x, y, z+1.5]) cube ([1.5,51,45]);
 }
 
 module lidCutouts(x,y,z)
 {
-	translate([x+53, y+25.5, z+1.5]) cylinder(h = 2.5,r = 18);
-	translate([x, y+5, z+1.5]) cube([101,12,2]);
-	translate([x+5, y+49-12, z+1.5]) cube([101,12,2]);
+	translate([x+53, y+25.5, z+1.5]) cylinder(h = 3.5,r = 18);
+	translate([x, y+5, z+1.5]) cube([101,12,3]);
+	translate([x+5, y+49-12, z+1.5]) cube([101,12,3]);
 }
 
 module lid(x,y,z)
@@ -23,7 +23,7 @@ module lid(x,y,z)
 		lidBase(x,y,z);
 		lidCutouts(x,y,z);
 	}
-	translate([x+53,y+25.5,z+1.5]) cylinder(h = 1.5,r = 4);
+	translate([x+53,y+25.5,z+1.5]) cylinder(h = 3.5,r = 4);
 }
 
 
@@ -43,21 +43,32 @@ module drawGear(x,y,z)
 
 module drawLeftRack(x,y,z)
 {
-	translate([x,y,z+(1.5/2)]) rack(height=10, mm_per_tooth=6.2, number_of_teeth=13, thickness=1.5);
-	translate([x+79,y-8.1,z]) cube([22,6,1.5]);
-	translate([x+101,y-8-5,z]) cube([1.5,46,10]);
+	translate([x,y,z+(1.5/2)]) rack(height=10, mm_per_tooth=6.3, number_of_teeth=13, thickness=1.5);
+	translate([x+80.3,y-8.1,z]) cube([22,6,1.5]);
+	translate([x+102.3,y-8-5,z]) cube([1.5,46,10]);
+}
+
+module drawRightRackCap(x,y,z)
+{
+	translate([x+5,y-50,z]) cube([10,48,1.5]);
+	translate([x+5,y-50,z+1.5]) cube([1.5,48,9]);
+	translate([x+5+3,y-50,z+1.5]) cube([4,1.5,3]);
+	translate([x+5+3,y-3.5,z+1.5]) cube([4,1.5,3]);
 }
 
 module drawRightRack(x,y,z)
 {
-	translate([x+22+79,y,z+(1.5/2)]) rotate([0,0,180]) rack(height=10, mm_per_tooth=6.2, number_of_teeth=13, thickness=1.5);
+	translate([x+22+79,y,z+(1.5/2)]) rotate([0,0,180]) rack(height=10, mm_per_tooth=6.3, number_of_teeth=13, thickness=1.5);
 	translate([x,y+2,z]) cube([22,6,1.5]);
 	difference()
 	{
 		translate([x-9,y-51+11,z]) cube([9,48,10]);
-		translate([x-7.5,y-51+13,z+2]) cube([7.5,44,6]);
+		translate([x-9,y-51+13,z+2]) cube([9,44,78]);
 		translate([x-7.5,y-51+13,z]) cube([6,40,8]);
+		translate([x-9,y-51+11,z+3]) cube([3,3,4]);
+		translate([x-9,y+6,z+3]) cube([3,3,4]);
 	}
+
 }
 
 
@@ -142,15 +153,17 @@ module drawLidAssembled(x,y,z)
 
 module drawExploded(x,y,z)
 {
-	% translate([x,y,z-1]) cube([180,150,1]);
-	lid(x,y,z);
-	drawLeftRack(x+5, y+80, z);
-	drawGear(x + 53, y+105, z);
-	rotate([270,0,0]) drawRightRack(x+10, -z - 8, y+130);
-	rotate([0,0,90]) drawCase(y,-x-170,z);
+	% translate([x,y,z-1]) cube([180,125,1]);
+//	lid(x,y,z);
+//	drawLeftRack(x+5, y+70, z);
+//	drawGear(x + 53, y+90, z);
+//	drawRightRack(x, y, z);
+	drawRightRackCap(x, y, z);
+//	rotate([0,0,90]) drawCase(y,-x-170,z);
 }
 
 
 
-drawAssembled(0, 0, 0);
-drawExploded(0, 100, 0);
+//drawAssembled(0, 0, 0);
+//drawExploded(0, 100, 0);
+drawExploded(0, 0, 0);
