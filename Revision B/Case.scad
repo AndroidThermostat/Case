@@ -7,22 +7,24 @@ module drawLidBase(x,y,z)
 //	translate([x,y,z]) cube([106,51,1.5]);
 //	translate([x, y-1.5, z+1.5]) cube([106,54,3.5]);
 	translate([x, y-1.5, z]) cube([107.5,54,4]);
-	translate([x+1.75, y+2, z+4]) cube ([1.5,47,34.5]);
-	translate([x, y+3.5, z+4]) cube ([1.75,44,34.5]);
+
+	translate([x+2, y+2, z+4]) cube ([1.5,46.5,24.5]);
+	translate([x, y+3.75, z+4]) cube ([1.75,43.5,24.5]);
 
 
 	//Catches
 	difference()
 	{
-		translate([96,y-0.5,z+4]) cube([3,3,5.5]);
-		translate([96,y-0.5,z+4]) cube([3,1.5,3]);
-		translate([96,y-1.2,z+5]) rotate([45,0,0]) cube([3,3,3]);
+		translate([90,y-0.5,z+4]) cube([8,5,9]);
+		translate([90,y-0.5,z+4]) cube([8,1.5,4]);
+		translate([90,y-1.2,z+6]) rotate([45,0,0]) cube([8,3,3]);
 	}
+
 	difference()
 	{
-		translate([96,y+48.5,z+4]) cube([3,3,5.5]);
-		translate([96,y+50,z+4]) cube([3,1.5,3]);
-		translate([96,y+52.1,z+4.9]) rotate([45,0,0]) cube([3,3,3]);
+		translate([90,y+47,z+4]) cube([8,5,9]);
+		translate([90,y+50.5,z+4]) cube([8,1.5,4]);
+		translate([90,y+52.7,z+5.8]) rotate([45,0,0]) cube([8,3,3]);
 	}
 
 }
@@ -41,7 +43,7 @@ module drawLidCutouts(x,y,z)
 	translate([x+38, y+49-13.5, z+3]) cube([30,11,1]);
 
 	//Cutout for lip
-	translate([x+41, y+ 48, z]) cube([24,4.5,4]);
+	translate([x+41, y+ 48, z]) cube([23.5,4.5,4]);
 }
 
 module drawLid(x,y,z)
@@ -154,16 +156,23 @@ module drawCase(x,y,z)
 			for(iH=[0:stepsH])
 			{
 				//first wall
-				translate([x+6 + iL*12,y,z+3 + iH*6]) cube([3,3,3]);
-				translate([x+6 + iL*12 + 6,y,z+6 + iH*6]) cube([3,3,3]);
+				if (iL>0 || iH>0) translate([x+6 + iL*12,y,z+3 + iH*6]) cube([3,3,3]);
+				if (iL<stepsL-1 || iH<stepsH-2) translate([x+6 + iL*12 + 6,y,z+6 + iH*6]) cube([3,3,3]);
 				//second wall
-				translate([x+6 + iL*12,y+54,z+3 + iH*6]) cube([3,3,3]);
-				translate([x+6 + iL*12 + 6,y+54,z+6 + iH*6]) cube([3,3,3]);
+				if (iL>0 || iH>0) translate([x+6 + iL*12,y+54,z+3 + iH*6]) cube([3,3,3]);
+				if (iL<stepsL-1 || iH<stepsH-2) translate([x+6 + iL*12 + 6,y+54,z+6 + iH*6]) cube([3,3,3]);
 			}
 		}
+		
+		 translate([x+90,y,z+27]) cube([9,3,6]);
+		 translate([x+90,y+54,z+27]) cube([9,3,6]);
+		
 //		translate([x,y+1.5,z+43]) cube([106,1.5,2.5]);
 //		translate([x,y+54,z+43]) cube([106,1.5,2.5]);
 	}
+
+
+
 //translate([x+96+1.,y-5,z+30]) cube([11.5,10,6]);
 
 	//back wall
@@ -188,6 +197,9 @@ module drawCase(x,y,z)
 		translate([x,y+51,z]) cube([5,3,height]);
 		translate([x+1.5,y+51,z]) cube([2,3,height]);
 	}
+
+	translate([x,y+3,z]) cube([5,51,10]);
+
 }
 
 
@@ -223,12 +235,13 @@ module drawExploded(x,y,z)
 	drawGear(x + 70, y+90, z);
 	drawRightRack(x, y+110, z);
 	rotate([0,0,90]) drawRightRackCap(y+80, -x, z);
-//	rotate([0,0,90]) drawCase(y,-x-170,z);
+	rotate([0,0,90]) drawCase(y,-x-170,z);
 }
 
 //drawAssembled(0, 0, 0);
 //drawExploded(0, 0, 0);
 //drawRightRack(0,0,0);
 drawLid(0,0,0);
-//drawCase(-100,0,0);
+drawCase(0,60,0);
+//drawCase(0,0,0);
 
