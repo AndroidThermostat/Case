@@ -4,13 +4,16 @@ include <gearLib.scad>
 //**********************************Lid***************************************************
 module drawLidBase(x,y,z)
 {
-//	translate([x,y,z]) cube([106,51,1.5]);
-//	translate([x, y-1.5, z+1.5]) cube([106,54,3.5]);
 	translate([x, y-1.5, z]) cube([107.5,54,4]);
+
+	//pads to help prevent pealing
+	translate([x, y, z]) cylinder(h = 0.2,r = 8);
+	translate([x, y+51.5, z]) cylinder(h = 0.2,r = 8);
+	translate([x+108, y, z]) cylinder(h = 0.2,r = 8);
+	translate([x+108, y+51.5, z]) cylinder(h = 0.2,r = 8);
 
 	translate([x+2, y+2, z+4]) cube ([1.5,46.5,24.5]);
 	translate([x, y+3.75, z+4]) cube ([1.75,43.5,24.5]);
-
 
 	//Catches
 	difference()
@@ -128,6 +131,12 @@ module drawCase(x,y,z)
 	stepsH=(height-11)/6;
 	stepsL=(length-12)/12;
 
+	//pads to help prevent pealing
+	translate([x, y+2, z]) cylinder(h = 0.2,r = 8);
+	translate([x+108, y+2, z]) cylinder(h = 0.2,r = 8);
+	translate([x, y+54, z]) cylinder(h = 0.2,r = 8);
+	translate([x+108, y+54, z]) cylinder(h = 0.2,r = 8);
+
 	difference()
 	{
 		//Bottom and screw holes
@@ -229,19 +238,19 @@ module drawLidAssembled(x,y,z)
 
 module drawExploded(x,y,z)
 {
-	% translate([x,y,z-1]) cube([180,125,1]);
+	% translate([x-20,y-10,z-1]) cube([210,135,1]);
 	drawLid(x,y,z);
-	drawLeftRack(x+5, y+70, z);
-	drawGear(x + 70, y+90, z);
-	drawRightRack(x, y+110, z);
+	drawLeftRack(x+5, y+73, z);
+	drawGear(x + 70, y+93, z);
+	drawRightRack(x-8, y+113, z);
 	rotate([0,0,90]) drawRightRackCap(y+80, -x, z);
-	rotate([0,0,90]) drawCase(y,-x-170,z);
+	rotate([0,0,90]) drawCase(y,-x-180,z);
 }
 
 //drawAssembled(0, 0, 0);
-//drawExploded(0, 0, 0);
+drawExploded(0, 0, 0);
 //drawRightRack(0,0,0);
-drawLid(0,0,0);
-drawCase(0,60,0);
+//drawLid(0,0,0);
+//drawCase(0,70,0);
 //drawCase(0,0,0);
 
