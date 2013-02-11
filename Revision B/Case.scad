@@ -1,7 +1,7 @@
 include <gearLib.scad>
 
-caseLength=106;
-caseWidth=51;
+caseLength=94;
+caseWidth=53;
 caseHeight = 36;
 wallThickness = 1.5;
 
@@ -17,22 +17,22 @@ module drawLidBase(x,y,z)
 	translate([x+caseLength, y+caseWidth, z]) cylinder(h = 0.2,r = 8);
 
 	//lip
-	translate([x+2, y+2, z+4]) cube ([1.5,46.5,26+wallThickness]);
-	translate([x, y+3.75, z+4]) cube ([2,43.5,26+wallThickness]);
+	translate([x+2, y+2, z+4]) cube ([1.5,caseWidth-4.5,caseHeight-10+wallThickness]);
+	translate([x, y+3.75, z+4]) cube ([2,caseWidth-7.5,caseHeight-10+wallThickness]);
 
 	//Catches
 	difference()
 	{
-		translate([90,y-1,z+4]) cube([8,5.5,9]);
-		translate([90,y-1,z+4]) cube([8,2,3.5]);
-		translate([90,y-1.7,z+5.4]) rotate([45,0,0]) cube([8,3,3]);
+		translate([caseLength-16,y-1,z+4]) cube([8,5.5,9]);
+		translate([caseLength-16,y-1,z+4]) cube([8,2,3.5]);
+		translate([caseLength-16,y-1.7,z+5.4]) rotate([45,0,0]) cube([8,3,3]);
 	}
 
 	difference()
 	{
-		translate([90,y+47,z+4]) cube([8,5.5,9]);
-		translate([90,y + caseWidth - 0.5,z+4]) cube([8,2,3.5]);
-		translate([90,y + caseWidth + 1.7, z+5.3]) rotate([45,0,0]) cube([8,3,3]);
+		translate([caseLength-16,y + caseWidth - 4,z+4]) cube([8,5.5,9]);
+		translate([caseLength-16,y + caseWidth - 0.5,z+4]) cube([8,2,3.5]);
+		translate([caseLength-16,y + caseWidth + 1.7, z+5.3]) rotate([45,0,0]) cube([8,3,3]);
 	}
 
 }
@@ -43,12 +43,12 @@ module drawLidCutouts(x,y,z)
 	translate([x+(caseLength/2), y+(caseWidth/2), z+0.5]) cylinder(h = 3.5,r = 18);
 
 	//Top Rail
-	translate([x, y+4.5, z+0.5]) cube([caseLength-wallThickness,11,3]);
-	translate([x+(caseLength-30)/2, y+4.5, z+3]) cube([30,11,1]);
+	translate([x, y+(caseWidth/2 - 21), z+0.5]) cube([caseLength-wallThickness,11,3]);
+	translate([x+(caseLength-30)/2, y+(caseWidth/2 - 21), z+3]) cube([30,11,1]);
 
 	//Bottom Rail
-	translate([x+5, y+caseWidth-15.5, z+0.5]) cube([caseLength-wallThickness,11,3]);
-	translate([x+(caseLength-30)/2, y+caseWidth-15.5, z+3]) cube([30,11,1]);
+	translate([x+5, y+(caseWidth/2 + 10), z+0.5]) cube([caseLength-wallThickness,11,3]);
+	translate([x+(caseLength-30)/2, y+(caseWidth/2 + 10), z+3]) cube([30,11,1]);
 
 	//Cutout for lip
 	translate([x+(caseLength-23.5)/2, y+ caseWidth - 3, z]) cube([23.5,4.5,4]);
@@ -88,8 +88,8 @@ module drawLeftRack(x,y,z)
 		translate([x-7.5,y-7,z+1.5-4.5]) rotate([0,30,0])  cube ([5,5,5]); //Angle tip
 	}
 
-	translate([x+56,y-7,z]) cube([16.7+25.6,5,wallThickness]);
-	translate([x+98.3,y-8-5,z]) cube([wallThickness,46,15]);
+	translate([x+(caseLength-50),y-7,z]) cube([(caseLength-63.7),5,wallThickness]);
+	translate([x+(caseLength-50 + caseLength-63.7),y-8-5,z]) cube([wallThickness,46,15]);
 }
 
 module drawRightRackCap(x,y,z)
@@ -102,12 +102,12 @@ module drawRightRack(x,y,z)
 {
 	difference()
 	{
-		translate([x+22+77.7,y,z+(1.5/2)]) rotate([0,0,180]) rack(height=9, mm_per_tooth=6.4, number_of_teeth=9, thickness=wallThickness);
-		translate([x+24.5+77.7,y,z]) rotate([0,60,0])  cube ([5,15,5]); //Angle tip
+		translate([x+(caseLength-6.3),y,z+(1.5/2)]) rotate([0,0,180]) rack(height=9, mm_per_tooth=6.4, number_of_teeth=9, thickness=wallThickness);
+		translate([x+(caseLength-3.8),y,z]) rotate([0,60,0])  cube ([5,15,5]); //Angle tip
 	}
 
 
-	translate([x,y+2,z]) cube([16.7+25.6+4,5,1.5]);
+	translate([x,y+2,z]) cube([caseLength-59.7,5,1.5]);
 
 	difference()
 	{
@@ -140,10 +140,10 @@ module drawCase(x,y,z)
 	{
 		//Bottom and screw holes
 		translate([x,y+(wallThickness*2),z]) cube([caseLength,caseWidth,wallThickness]);
-		translate([x+wallThickness+5,y+(wallThickness*2)+5,z]) cylinder(h = wallThickness,r = 1);
-		translate([x+wallThickness+5,y+caseWidth+(wallThickness*2)-5,z]) cylinder(h = wallThickness,r = 1);
-		translate([x+caseLength-5,y+(wallThickness*2)+5,z]) cylinder(h = wallThickness,r = 1);
-		translate([x+caseLength-5,y+caseWidth+(wallThickness*2)-5,z]) cylinder(h = wallThickness,r = 1);
+		translate([x+wallThickness+4,y+(wallThickness*2)+4,z]) cylinder(h = wallThickness,r = 1);
+		translate([x+wallThickness+4,y+caseWidth+(wallThickness*2)-4,z]) cylinder(h = wallThickness,r = 1);
+		translate([x+caseLength-4,y+(wallThickness*2)+4,z]) cylinder(h = wallThickness,r = 1);
+		translate([x+caseLength-4,y+caseWidth+(wallThickness*2)-4,z]) cylinder(h = wallThickness,r = 1);
 
 		//Hole for furnace wires
 		translate([x+(wallThickness*2),y+11,z]) cube([6,35,wallThickness]);
@@ -151,7 +151,7 @@ module drawCase(x,y,z)
 	}
 
 	//Board catch
-	translate([x+21,y+caseWidth-10+(wallThickness*2),z+wallThickness]) cube([wallThickness,10,3]);
+//	translate([x+21,y+caseWidth-10+(wallThickness*2),z+wallThickness]) cube([wallThickness,10,3]);
 
 	//Side walls
 	difference() {
@@ -222,28 +222,32 @@ module drawAssembled(x,y,z)
 module drawLidAssembled(x,y,z)
 {
 	drawLid(x,y,z);
-	drawGear(x + 53, y+25.5, z+1.5);
-	rotate([0,180,0]) drawLeftRack(-x-96, y+14, -z-3.5);
-	rotate([0,180,0]) drawRightRack(-x-111, y+37, -z-3.5);
-	rotate([0,270,0]) drawRightRackCap(z-19, y+46, -x-125);
+	drawGear(x + caseLength/2, y+caseWidth/2, z+wallThickness);
+	rotate([0,180,0]) drawLeftRack(-x-(caseLength-20), y+14, -z-3.5);
+	rotate([0,180,0]) drawRightRack(-x-(caseLength+5), y+37, -z-3.5);
+	rotate([0,270,0]) drawRightRackCap(z-18, y+46, -x-(caseLength+20));
 }
 
 module drawExploded(x,y,z)
 {
 	% translate([x-20,y-10,z-1]) cube([210,135,1]);
 	drawLid(x,y,z);
-	drawLeftRack(x+5, y+73, z);
-	drawGear(x + 70, y+93, z);
-	drawRightRack(x-8, y+113, z);
-	rotate([0,0,90]) drawRightRackCap(y+80, -x, z);
+	drawExplodedRackAndPinion(x,y+73,z);
 	rotate([0,0,90]) drawCase(y,-x-180,z);
 }
 
+module drawExplodedRackAndPinion(x,y,z)
+{
+	drawLeftRack(x+111-caseLength, y, z);
+	drawGear(x + 70, y+20, z);
+	drawRightRack(x-(98-caseLength), y+41, z);
+	rotate([0,0,90]) drawRightRackCap(y+7, -x, z);
+}
+
 //drawAssembled(0, 0, 0);
-//drawExploded(0, 0, 0);
-//drawLeftRack(0,0,0);
-drawLid(0,0,0);
-//drawCase(0,70,0);
+drawExploded(0, 0, 0);
+//drawExplodedRackAndPinion(0,0,0);
+//drawLid(0,0,0);
 //drawCase(0,0,0);
 
 
