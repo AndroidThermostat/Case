@@ -2,7 +2,7 @@ include <gearLib.scad>
 
 caseLength=94;
 caseWidth=53;
-caseHeight = 36;
+caseHeight = 42; //36
 wallThickness = 1.5;
 
 //**********************************Lid***************************************************
@@ -17,22 +17,22 @@ module drawLidBase(x,y,z)
 	translate([x+caseLength, y+caseWidth, z]) cylinder(h = 0.2,r = 8);
 
 	//lip
-	translate([x+2, y+2, z+4]) cube ([1.5,caseWidth-4.5,caseHeight-10+wallThickness]);
-	translate([x, y+3.75, z+4]) cube ([2,caseWidth-7.5,caseHeight-10+wallThickness]);
+	translate([x+2, y+2, z+4]) cube ([1.5,caseWidth-4.5,caseHeight-10]);
+	translate([x, y+3.75, z+4]) cube ([2,caseWidth-7.5,caseHeight-10]);
 
 	//Catches
 	difference()
 	{
-		translate([caseLength-16,y-1,z+4]) cube([8,5.5,9]);
-		translate([caseLength-16,y-1,z+4]) cube([8,2,3.5]);
-		translate([caseLength-16,y-1.7,z+5.4]) rotate([45,0,0]) cube([8,3,3]);
+		translate([caseLength-16,y-1,z+4]) cube([8,5.5,6]);
+		translate([caseLength-16,y-1,z+4]) cube([8,2,3.9]);
+		translate([caseLength-16,y-1.7,z+5.8]) rotate([45,0,0]) cube([8,3,3]);
 	}
 
 	difference()
 	{
-		translate([caseLength-16,y + caseWidth - 4,z+4]) cube([8,5.5,9]);
+		translate([caseLength-16,y + caseWidth - 4,z+4]) cube([8,5.5,6]);
 		translate([caseLength-16,y + caseWidth - 0.5,z+4]) cube([8,2,3.5]);
-		translate([caseLength-16,y + caseWidth + 1.7, z+5.3]) rotate([45,0,0]) cube([8,3,3]);
+		translate([caseLength-16,y + caseWidth + 1.7, z+5.4]) rotate([45,0,0]) cube([8,3,3]);
 	}
 
 }
@@ -84,8 +84,10 @@ module drawLeftRack(x,y,z)
 	//mm_per_tooth = 2 * Pi * r / gear_teeth
 	difference()
 	{
-		translate([x,y,z+(1.5/2)]) rack(height=9, mm_per_tooth=6.4, number_of_teeth=9, thickness=wallThickness);
-		translate([x-7.5,y-7,z+1.5-4.5]) rotate([0,30,0])  cube ([5,5,5]); //Angle tip
+		translate([x+caseLength-106,y,z+(1.5/2)]) rack(height=9, mm_per_tooth=6.4, number_of_teeth=9, thickness=wallThickness);
+		translate([x+caseLength-106-7.5,y-7,z+1.5-4.5]) rotate([0,30,0])  cube ([5,5,5]); //Angle tip
+		//translate([x,y,z+(1.5/2)]) rack(height=9, mm_per_tooth=6.4, number_of_teeth=9, thickness=wallThickness);
+		//translate([x-7.5,y-7,z+1.5-4.5]) rotate([0,30,0])  cube ([5,5,5]); //Angle tip
 	}
 
 	translate([x+(caseLength-50),y-7,z]) cube([(caseLength-63.7),5,wallThickness]);
@@ -180,8 +182,10 @@ module drawCase(x,y,z)
 	difference()
 	{
 		translate([x+caseLength,y+wallThickness,z]) cube([wallThickness,caseWidth+(wallThickness*2),caseHeight]);
-		translate([x+caseLength,y+23.5,32]) cube([wallThickness,10,4]);
+		translate([x+caseLength,y+(caseWidth-10)/2, caseHeight-4]) cube([wallThickness,10,4]);
+		translate([x+caseLength-wallThickness,y+caseWidth/2,caseHeight-4]) rotate([0,90,0]) cylinder(h = wallThickness*2,r = 4);
 	}
+
 
 	//Lip
 	translate([x+(caseLength-18.5)/2,y+wallThickness,z+caseHeight]) cube([20,wallThickness,14]);
@@ -245,9 +249,10 @@ module drawExplodedRackAndPinion(x,y,z)
 }
 
 //drawAssembled(0, 0, 0);
-drawExploded(0, 0, 0);
+//drawExploded(0, 0, 0);
 //drawExplodedRackAndPinion(0,0,0);
 //drawLid(0,0,0);
-//drawCase(0,0,0);
+drawCase(0,0,0);
+//drawLeftRack(0,0,0);
 
 
