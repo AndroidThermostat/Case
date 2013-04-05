@@ -20,19 +20,27 @@ module drawLidBase(x,y,z)
 	translate([x+2, y+2, z+4]) cube ([1.5,caseWidth-4.5,caseHeight-10]);
 	translate([x, y+3.75, z+4]) cube ([2,caseWidth-7.5,caseHeight-10]);
 
+
 	//Catches
 	difference()
 	{
-		translate([caseLength-16,y-1,z+4]) cube([8,5.5,6]);
-		translate([caseLength-16,y-1,z+4]) cube([8,2,3.9]);
-		translate([caseLength-16,y-1.7,z+5.8]) rotate([45,0,0]) cube([8,3,3]);
+		translate([x+caseLength-16,y-1,z+4]) cube([8,5.5,6]);
+		translate([x+caseLength-16,y-1,z+4]) cube([8,2,3.9]);
+		translate([x+caseLength-16,y-1.7,z+5.8]) rotate([45,0,0]) cube([8,3,3]);
 	}
 
 	difference()
 	{
-		translate([caseLength-16,y + caseWidth - 4,z+4]) cube([8,5.5,6]);
-		translate([caseLength-16,y + caseWidth - 0.5,z+4]) cube([8,2,3.5]);
-		translate([caseLength-16,y + caseWidth + 1.7, z+5.4]) rotate([45,0,0]) cube([8,3,3]);
+		translate([x+caseLength-16,y + caseWidth - 4,z+4]) cube([8,5.5,6]);
+		translate([x+caseLength-16,y + caseWidth - 0.5,z+4]) cube([8,2,3.5]);
+		translate([x+caseLength-16,y + caseWidth + 1.7, z+5.4]) rotate([45,0,0]) cube([8,3,3]);
+	}
+
+	//draw the curved top
+	difference()
+	{
+		translate([x+caseLength/2,y+caseWidth+13.7,z]) cylinder(h = 4,r = caseLength*0.8);
+		translate([x-caseLength/2,y-caseLength+100,z]) cube([caseLength*2,caseLength*2+10,4]);
 	}
 
 }
@@ -126,6 +134,25 @@ module drawRightRack(x,y,z)
 
 //*****************************Case***************************************************
 
+module drawLogo(x,y,z)
+{
+	union() {
+		translate([x,y,z])  rotate([90,0,0]) cylinder(h = wallThickness*4,r = 3.75);
+
+		translate([x-3.75,y-wallThickness*4,z-6])  cube([7.5,wallThickness*4,6]);
+		translate([x-6,y,z-3])  rotate([90,0,0]) drawLogoExtremity();
+		translate([x-1.875,y,z-6])  rotate([90,0,0]) drawLogoExtremity();
+		translate([x+1.875,y,z-6])  rotate([90,0,0]) drawLogoExtremity();
+		translate([x+6,y,z-3])  rotate([90,225,0]) drawLogoExtremity();
+	}
+}
+
+module drawLogoExtremity()
+{
+	cylinder(h = wallThickness*4,r = 1.5);
+	translate([-1.5,-3,0]) cube([3,3,wallThickness*4]);
+	translate([0,-3,0]) cylinder(h = wallThickness*4,r = 1.5);
+}
 
 module drawCase(x,y,z)
 {
@@ -142,48 +169,58 @@ module drawCase(x,y,z)
 	{
 		//Bottom and screw holes
 		translate([x,y+(wallThickness*2),z]) cube([caseLength,caseWidth,wallThickness]);
-		translate([x+wallThickness+4,y+(wallThickness*2)+4,z]) cylinder(h = wallThickness,r = 1);
-		translate([x+wallThickness+4,y+caseWidth+(wallThickness*2)-4,z]) cylinder(h = wallThickness,r = 1);
-		translate([x+caseLength-4,y+(wallThickness*2)+4,z]) cylinder(h = wallThickness,r = 1);
-		translate([x+caseLength-4,y+caseWidth+(wallThickness*2)-4,z]) cylinder(h = wallThickness,r = 1);
+
+		translate([x+wallThickness+6,y+(wallThickness*2)+6,z]) cylinder(h = wallThickness,r = 1.5);
+		translate([x+wallThickness+6,y+caseWidth+(wallThickness*2)-6,z]) cylinder(h = wallThickness,r = 1.5);
+		translate([x+caseLength-6,y+(wallThickness*2)+6,z]) cylinder(h = wallThickness,r = 1.5);
+		translate([x+caseLength-6,y+caseWidth+(wallThickness*2)-6,z]) cylinder(h = wallThickness,r = 1.5);
 
 		//Hole for furnace wires
-		translate([x+(wallThickness*2),y+11,z]) cube([6,35,wallThickness]);
-		translate([x+(wallThickness*2)+6,y+(wallThickness*2),z]) cube([12,caseWidth,wallThickness]);
+		translate([x+(wallThickness*2),y+13,z]) cube([8,31,wallThickness]);
+		translate([x+(wallThickness*2)+8,y+(wallThickness*2),z]) cube([10,caseWidth,wallThickness]);
 	}
 
-	//Board catch
-//	translate([x+21,y+caseWidth-10+(wallThickness*2),z+wallThickness]) cube([wallThickness,10,3]);
 
 	//Side walls
 	difference() {
 		union(){
 			translate([x,y+wallThickness,z]) cube([caseLength,wallThickness,caseHeight]);
 			translate([x,y+caseWidth+(wallThickness*2),z]) cube([caseLength,wallThickness,caseHeight]);
-		}
-		for(iL=[0:stepsL])
-		{
-			for(iH=[0:stepsH])
+
+			//draw the curved top
+			difference()
 			{
-				//first wall
-				if (iL>0 || iH>0) translate([x+6 + iL*12,y,z+(wallThickness*2) + iH*6]) cube([3,3,3]);
-				if (iL<stepsL-1 || iH<stepsH-2) translate([x+6 + iL*12 + 6,y,z+6 + iH*6]) cube([3,3,3]);
-				//second wall
-				if (iL>0 || iH>0) translate([x+6 + iL*12,y+caseWidth+(wallThickness*2),z+(wallThickness*2) + iH*6]) cube([3,3,3]);
-				if (iL<stepsL-1 || iH<stepsH-2) translate([x+6 + iL*12 + 6,y+caseWidth+(wallThickness*2),z+6 + iH*6]) cube([3,3,3]);
+				translate([x+caseLength/2,y-10.7,z]) cylinder(h = caseHeight,r = caseLength*0.8);
+				translate([x-caseLength/2,y-caseLength-(caseLength/2),z]) cube([caseLength*2,caseLength*2+10,caseHeight]);
 			}
 		}
+
+		//Cut away the inside of the curved top
+		difference()
+		{
+//			translate([x+caseLength/2,y-32-wallThickness,z+wallThickness]) cylinder(h = caseHeight-wallThickness,r = caseLength);
+			translate([x+caseLength/2,y-32-wallThickness,z+wallThickness+4]) cylinder(h = caseHeight-wallThickness,r = caseLength);
+			translate([x-caseLength/2,y-caseLength-(caseLength/2)-wallThickness,z]) cube([caseLength*2,caseLength*2+10,caseHeight]);
+		}
+
+
+		drawLogo(x+(caseLength/2)+1.5,y+4,z+(wallThickness*2)+18);
+		rotate([0,0,180]) drawLogo(-x-(caseLength/2)-0.5,-y-caseWidth-wallThickness*2-3,z+(wallThickness*2)+18);
+
 		//Lid catches		
 		 translate([x+caseLength-16,y,z+caseHeight-9]) cube([9,3,6]);
 		 translate([x+caseLength-16,y+caseWidth+(wallThickness*2),z+caseHeight-9]) cube([9,3,6]);
 	}
 
+	//board catch	
+//	translate([x,y+caseWidth+(wallThickness*2),z]) cube([caseLength,wallThickness,8]);
+
 	//back wall
 	difference()
 	{
 		translate([x+caseLength,y+wallThickness,z]) cube([wallThickness,caseWidth+(wallThickness*2),caseHeight]);
-		translate([x+caseLength,y+(caseWidth-10)/2, caseHeight-4]) cube([wallThickness,10,4]);
-		translate([x+caseLength-wallThickness,y+caseWidth/2,caseHeight-4]) rotate([0,90,0]) cylinder(h = wallThickness*2,r = 4);
+		translate([x+caseLength,y+(caseWidth-10)/2, caseHeight-5]) cube([wallThickness,10,5]);
+//		translate([x+caseLength-wallThickness,y+caseWidth/2,caseHeight-4]) rotate([0,90,0]) cylinder(h = wallThickness*2,r = 4);
 	}
 
 
@@ -249,10 +286,10 @@ module drawExplodedRackAndPinion(x,y,z)
 }
 
 //drawAssembled(0, 0, 0);
-//drawExploded(0, 0, 0);
+drawExploded(0, 0, 0);
 //drawExplodedRackAndPinion(0,0,0);
-//drawLid(0,0,0);
-drawCase(0,0,0);
+//drawLid(60,0,0);
+//drawCase(0,-100,0);
 //drawLeftRack(0,0,0);
 
 
