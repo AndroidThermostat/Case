@@ -17,8 +17,8 @@ module drawLidBase(x,y,z)
 	translate([x+caseLength, y+caseWidth, z]) cylinder(h = 0.2,r = 8);
 
 	//lip
-	translate([x+2, y+2, z+4]) cube ([1.5,caseWidth-4.5,caseHeight-10]);
-	translate([x, y+3.75, z+4]) cube ([2,caseWidth-7.5,caseHeight-10]);
+	translate([x+2, y+2, z+4]) cube ([1.5,caseWidth-4.5,caseHeight-11]);
+	translate([x, y+3.75, z+4]) cube ([2,caseWidth-7.5,caseHeight-11]);
 
 
 	//Catches
@@ -43,6 +43,8 @@ module drawLidBase(x,y,z)
 		translate([x-caseLength/2,y-caseLength+100,z]) cube([caseLength*2,caseLength*2+10,4]);
 	}
 
+	translate([x+(caseLength+23.5)/2,  y+ caseWidth+wallThickness , z]) cube([8,3,8]);
+	translate([x+(caseLength-23.5)/2-8,  y+ caseWidth+wallThickness , z]) cube([8,3,8]);
 }
 
 module drawLidCutouts(x,y,z)
@@ -100,11 +102,15 @@ module drawLeftRack(x,y,z)
 
 	translate([x+(caseLength-50),y-7,z]) cube([(caseLength-63.7),5,wallThickness]);
 	translate([x+(caseLength-50 + caseLength-63.7),y-8-5,z]) cube([wallThickness,46,15]);
+	difference(){
+		translate([x+(caseLength-50 + caseLength-63.7)-5+wallThickness,y-8-5,z+15]) cube([5,46,5]);
+		translate([x+(caseLength-50 + caseLength-63.7)-wallThickness,y-8-5,z+13]) rotate([0,315,0]) cube([2.5,46,5]);
+	}
 }
 
 module drawRightRackCap(x,y,z)
 {
-	translate([x+5,y-49.5,z]) cube([16.5,48,1.5]);
+	translate([x+5,y-49.5,z]) cube([23.5,48,1.5]);
 	translate([x+5,y-49.5,z+1.5]) cube([1.5,48,15]);
 }
 
@@ -225,8 +231,13 @@ module drawCase(x,y,z)
 
 
 	//Lip
-	translate([x+(caseLength-18.5)/2,y+wallThickness,z+caseHeight]) cube([20,wallThickness,14]);
-	translate([x+(caseLength-18.5)/2,y+wallThickness,z+caseHeight+14]) cube([20,3,2]);
+	difference()
+	{
+		translate([x+(caseLength-18.5)/2,y+wallThickness,z+caseHeight-wallThickness]) cube([20,wallThickness*2,17+wallThickness]);
+		translate([x+(caseLength-18.5)/2,y+wallThickness*2+1,z+caseHeight-wallThickness-1]) rotate([45,0,0]) cube([20,wallThickness*2,wallThickness]);
+	}
+
+	translate([x+(caseLength-18.5)/2,y+wallThickness,z+caseHeight+17]) cube([20,3*2,2]);
 
 	//Grooves
 	difference()
@@ -288,8 +299,10 @@ module drawExplodedRackAndPinion(x,y,z)
 //drawAssembled(0, 0, 0);
 drawExploded(0, 0, 0);
 //drawExplodedRackAndPinion(0,0,0);
-//drawLid(60,0,0);
-//drawCase(0,-100,0);
-//drawLeftRack(0,0,0);
+//drawLid(0,0,0);
+//drawCase(0,0,0);
+
+
+
 
 
